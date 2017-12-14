@@ -11,6 +11,7 @@ using namespace std;
 
 /* Header das funções */
 
+/* Classes da estrutura */
 class Vertice{
   int x; //Posição X
   int y; //Posição Y
@@ -33,7 +34,7 @@ class Vertice{
   }
 
   void toString(){
-    printf("[%d/%d] : %d(d)\n", x, y, d);
+    printf("[%d/%d] : (%d) %d\n", x, y, d, c);
   }
 
   /* Construtor do vertice */
@@ -93,6 +94,31 @@ public:
 
 };
 
+/* Variáveis globais */
+static vector<Vertice*> inputVertices;
+static int tam; //Número de vertices
+static int p; //Número de medianas
+
+/* Lê o problema (input passa por arquivo no stdin) */
+void leInput(){
+  int i,x,y,c,d;
+  scanf("%d %d", &tam, &p);
+  scanf("%d %d", &x,&y); // Lê dados desnecessários para descartar do stdin
+  vector<Vertice*>::iterator it;
+
+  for(i = 0; i < tam; i++){
+    scanf("%d %d %d %d",&x,&y,&c,&d);
+    printf("%d %d %d %d\n",x,y,c,d );
+    Vertice v(x,y,c,d);
+    it = inputVertices.end();
+    inputVertices.insert(it,&v);
+  }
+
+  for(Vertice* vv : inputVertices){
+    vv->toString();
+  }
+}
+
 int main(int argc, char** argv){
   //TODO Parametrização, inicialização correta
   /* Teste básico*/
@@ -104,7 +130,10 @@ int main(int argc, char** argv){
   m.associa(&v2);
   m.associa(&v3);
 
-  m.printMediana();
+  //m.printMediana();
+  leInput();
+  printf("Tam = %d\n %d Medianas",tam, p);
+
 
   return 0;
 }
